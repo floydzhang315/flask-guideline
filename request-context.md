@@ -6,7 +6,7 @@
 
 ## 深入本地环境
 
-假设有一个工具函数，这个函数返回用户重定向的 URL （包括 URL 的 next 参数、 或 HTTP 推荐 和索引页面）:
+假设有一个工具函数，这个函数返回用户重定向的 URL （包括 URL 的 next 参数、 或 HTTP 推荐和索引页面）:
 
 ```
 from flask import request, url_for
@@ -17,7 +17,7 @@ def redirect_url():
            url_for('index')
 ```
 
-如上例所示，这个函数访问了请求对象。如果你在一个普通的 Python 解释器中运行这个 函数，那么会看到如下异常：
+如上例所示，这个函数访问了请求对象。如果你在一个普通的 Python 解释器中运行这个函数，那么会看到如下异常：
 
 ```
 >>> redirect_url()
@@ -26,7 +26,7 @@ Traceback (most recent call last):
 AttributeError: 'NoneType' object has no attribute 'request'
 ```
 
-这是因为现在我们没有一个可以访问的请求。所以我们只能创建一个请求并绑定到当前 环境中。 test_request_context 方法可以创建一个 RequestContext ：
+这是因为现在我们没有一个可以访问的请求。所以我们只能创建一个请求并绑定到当前环境中。 test_request_context 方法可以创建一个 RequestContext ：
 
 ```
 >>> ctx = app.test_request_context('/?next=http://example.com/')
@@ -51,7 +51,7 @@ u'http://example.com/'
 >>> ctx.pop()
 ```
 
-可以把请求环境理解为一个堆栈，可以多次压入和弹出，可以方便地执行一个像内部 重定向之类的东西。
+可以把请求环境理解为一个堆栈，可以多次压入和弹出，可以方便地执行一个像内部重定向之类的东西。
 
 关于在 Python 解释器中使用请求环境的更多内容参见[在 Shell 中使用 Flask](used-shell.md) 。
 
@@ -69,11 +69,11 @@ def wsgi_app(self, environ):
         return response(environ, start_response)
 ```
 
-request_context() 方法返回一个新的 RequestContext 对象，并且使用 with 语句把这个对象绑定 到环境。在 with 语句块中，在同一个线程中调用的所有东西可以访问全局请求 （flask.request 或其他）。
+request_context() 方法返回一个新的 RequestContext 对象，并且使用 with 语句把这个对象绑定到环境。在 with 语句块中，在同一个线程中调用的所有东西可以访问全局请求 （flask.request 或其他）。
 
 请求环境的工作方式就像一个堆栈，栈顶是当前活动请求。 push() 把环境压入堆栈中，而 pop() 把环境弹出。弹出的同时，会执行应用的 teardown_request() 函数。
 
-另一件要注意的事情是：请求环境会在压入时自动创建一个 应用环境 。在此之前，应用没有应用环境。
+另一件要注意的事情是：请求环境会在压入时自动创建一个应用环境 。在此之前，应用没有应用环境。
 
 ## 回调和错误处理
 
@@ -93,9 +93,9 @@ Flask 0.7 版本的重大变化是内部服务器错误不再由请求后回调�
 
 ## 卸载回调函数
 
-卸载回调函数的特殊之处在于其调用的时机是不固定的。严格地说，调用时机取决于 其绑定的 RequestContext 对象的生命周期。当请求环境弹出时就 会调用 teardown_request() 函数。
+卸载回调函数的特殊之处在于其调用的时机是不固定的。严格地说，调用时机取决于其绑定的 RequestContext 对象的生命周期。当请求环境弹出时就 会调用 teardown_request() 函数。
 
-请求环境的生命周期是会变化的，当请求环境位于测试客户端中的 with 语句中或者在 命令行下使用请求环境时，其生命周期会被延长。因此知道生命周期是否被延长是很重要 的:
+请求环境的生命周期是会变化的，当请求环境位于测试客户端中的 with 语句中或者在 命令行下使用请求环境时，其生命周期会被延长。因此知道生命周期是否被延长是很重要的:
 
 ```
 with app.test_client() as client:
@@ -128,7 +128,7 @@ this runs after request
 
 部分 Flask 提供的对象是其他对象的代理。使用代理的原因是代理对象共享于不同的 线程，它们在后台根据需要把实际的对象分配给不同的线程。
 
-多数情况下，你不需要关心这个。但是也有例外，在下列情况有下，知道对象是一个代理 对象是有好处的：
+多数情况下，你不需要关心这个。但是也有例外，在下列情况有下，知道对象是一个代理对象是有好处的：
 
 想要执行真正的实例检查的情况。因为代理对象不会假冒被代理对象的对象类型， 因此，必须检查被代理的实际对象（参见下面的 _get_current_object ）。
 对象引用非常重要的情况（例如发送 信号 ）。
@@ -143,8 +143,8 @@ my_signal.send(app)
 
 不管是否出错，在请求结束时，请求环境会被弹出，并且所有相关联的数据会被销毁。 但是在开发过程中，可能需要在出现异常时保留相关信息。在 Flask 0.6 版本及更早的 版本中，在发生异常时，请求环境不会被弹出，以便于交互调试器提供重要信息。
 
-自 Flask 0.7 版本开始，可以通过设置 PRESERVE_CONTEXT_ON_EXCEPTION 配置变量 来更好地控制环境的保存。缺省情况下，这个配置变更与 DEBUG 变更关联。如果在 调试模式下，那么环境会被保留，而在生产模式下则不保留。
+自 Flask 0.7 版本开始，可以通过设置 PRESERVE_CONTEXT_ON_EXCEPTION 配置变量来更好地控制环境的保存。缺省情况下，这个配置变更与 DEBUG 变更关联。如果在 调试模式下，那么环境会被保留，而在生产模式下则不保留。
 
-不要在生产环境下强制激活 PRESERVE_CONTEXT_ON_EXCEPTION ，因为这会在出现异常 时导致应用内存溢出。但是在调试模式下使用这个变更是十分有用的，你可以获得在生产 模式下出错时的环境。
+不要在生产环境下强制激活 PRESERVE_CONTEXT_ON_EXCEPTION ，因为这会在出现异常 时导致应用内存溢出。但是在调试模式下使用这个变更是十分有用的，你可以获得在生产模式下出错时的环境。
 
 *© Copyright 2013, Armin Ronacher. Created using [Sphinx](http://sphinx.pocoo.org/).*
