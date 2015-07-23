@@ -14,7 +14,7 @@ Flask 中蓝图有以下用途：
 4. 通过蓝图提供模板过滤器、静态文件、模板和其他工具。蓝图不必执行应用或视图 函数。
 5. 当初始化一个 Flask 扩展时，为以上任意一种用途注册一个蓝图。
 
-Flask 中的蓝图不是一个可插拨的应用，因为它不是一个真正的应用，而是一套可以注册 在应用中的操作，并且可以注册多次。那么为什么不使用多个应用对象呢？可以使用多个 应用对象（参见[应用调度](http://dormousehole.readthedocs.org/en/latest/patterns/appdispatch.html#app-dispatch) ），但是这样会导致每个应用都使用自己独立的 配置，且只能在 WSGI 层中管理应用。
+Flask 中的蓝图不是一个可插拨的应用，因为它不是一个真正的应用，而是一套可以注册 在应用中的操作，并且可以注册多次。那么为什么不使用多个应用对象呢？可以使用多个 应用对象（参见[应用调度](http://dormousehole.readthedocs.org/en/latest/patterns/appdispatch.html#app-dispatch) ），但是这样会导致每个应用都使用自己独立的配置，且只能在 WSGI 层中管理应用。
 
 而如果使用蓝图，那么应用会在 Flask 层中进行管理，共享配置，通过注册按需改变应用 对象。蓝图的缺点是一旦应用被创建后，只有销毁整个应用对象才能注销蓝图。
 
@@ -64,7 +64,7 @@ app.register_blueprint(simple_page)
  <Rule '/' (HEAD, OPTIONS, GET) -> simple_page.show>]
 ```
 
-第一条很明显，是来自于应用本身的用于静态文件的。后面两条是用于蓝图 simple_page 的 show 函数的。你可以看到，它们的前缀都是蓝图的名称，并且 使用一个点（ . ）来分隔。
+第一条很明显，是来自于应用本身的用于静态文件的。后面两条是用于蓝图 simple_page 的 show 函数的。你可以看到，它们的前缀都是蓝图的名称，并且使用一个点（ . ）来分隔。
 
 蓝图还可以挂接到不同的位置:
 
@@ -88,9 +88,9 @@ app.register_blueprint(simple_page, url_prefix='/pages')
 
 ### 蓝图资源文件夹
 
-和普通应用一样，蓝图一般都放在一个文件夹中。虽然多个蓝图可以共存于同一个文件夹 中，但是最好不要这样做。
+和普通应用一样，蓝图一般都放在一个文件夹中。虽然多个蓝图可以共存于同一个文件夹中，但是最好不要这样做。
 
-文件夹由 Blueprint 的第二个参数指定，通常为 __name__ 。这个参数指定 与蓝图相关的逻辑 Python 模块或包。如果这个参数指向的是实际的 Python 包（文件 系统中的一个文件夹），那么它就是资源文件夹。如果是一个模块，那么这个模块包含的 包就是资源文件夹。可以通过 Blueprint.root_path 属性来查看蓝图的资源 文件夹:
+文件夹由 Blueprint 的第二个参数指定，通常为 __name__ 。这个参数指定与蓝图相关的逻辑 Python 模块或包。如果这个参数指向的是实际的 Python 包（文件 系统中的一个文件夹），那么它就是资源文件夹。如果是一个模块，那么这个模块包含的 包就是资源文件夹。可以通过 Blueprint.root_path 属性来查看蓝图的资源文件夹:
 
 ```
 >>> simple_page.root_path
@@ -106,7 +106,7 @@ with simple_page.open_resource('static/style.css') as f:
 
 ### 静态文件
 
-蓝图的第三个参数是 static_folder 。这个参数用以指定蓝图的静态文件所在的 文件夹，它可以是一个绝对路径也可以是相对路径。:
+蓝图的第三个参数是 static_folder 。这个参数用以指定蓝图的静态文件所在的文件夹，它可以是一个绝对路径也可以是相对路径。:
 
 ```
 admin = Blueprint('admin', __name__, static_folder='static')
@@ -140,7 +140,7 @@ admin = Blueprint('admin', __name__, template_folder='templates')
 url_for('admin.index')
 ```
 
-另外，如果在一个蓝图的视图函数或者被渲染的模板中需要链接同一个蓝图中的其他 端点，那么使用相对重定向，只使用一个点使用为前缀:
+另外，如果在一个蓝图的视图函数或者被渲染的模板中需要链接同一个蓝图中的其他端点，那么使用相对重定向，只使用一个点使用为前缀:
 
 ```
 url_for('.index')
