@@ -8,11 +8,11 @@ Flask 依赖两个外部库： [Werkzeug](http://werkzeug.pocoo.org/) 和 [Jinja
 
 ## virtualenv
 
-如果可以使用 shell ，那么可能 Virtualenv 是你在开发环境和生产环境都想使用的 东西。
+如果可以使用 shell ，那么可能 Virtualenv 是你在开发环境和生产环境都想使用的东西。
 
-virtualenv 有什么用？如果你象我一样热爱 Python ，那么除了基于 Flask 的项目外 还会有其他项目用到 Python 。当项目越来越多时就会面对使用不同版本的 Python 的 问题，或者至少会遇到使用不同版本的 Python 库的问题。摆在你面前的是：库常常不能 向后兼容，更不幸的是任何成熟的应用都不是零依赖。如果两个项目依赖出现冲突， 怎么办？
+virtualenv 有什么用？如果你象我一样热爱 Python ，那么除了基于 Flask 的项目外还会有其他项目用到 Python 。当项目越来越多时就会面对使用不同版本的 Python 的问题，或者至少会遇到使用不同版本的 Python 库的问题。摆在你面前的是：库常常不能向后兼容，更不幸的是任何成熟的应用都不是零依赖。如果两个项目依赖出现冲突， 怎么办？
 
-Virtualenv 就是救星！它的基本原理是为每个项目安装一套 Python ，多套 Python 并存。但它不是真正地安装多套独立的 Python 拷贝，而是使用了一种巧妙的方法让不同 的项目处于各自独立的环境中。让我们来看看 virtualenv 是如何运行的！
+Virtualenv 就是救星！它的基本原理是为每个项目安装一套 Python ，多套 Python 并存。但它不是真正地安装多套独立的 Python 拷贝，而是使用了一种巧妙的方法让不同的项目处于各自独立的环境中。让我们来看看 virtualenv 是如何运行的！
 
 如果你使用 Mac OS X 或 Linux ，那么可以使用下面两条命令中任意一条:
 
@@ -95,7 +95,7 @@ $ python setup.py develop
 Finished processing dependencies for Flask
 ```
 
-上述操作会安装相关依赖库并在 virtualenv 中激活 git 头作为当前版本。然后只要 使用 git pull origin 命令就可以安装最新版本的 Flask 了。
+上述操作会安装相关依赖库并在 virtualenv 中激活 git 头作为当前版本。然后只要使用 git pull origin 命令就可以安装最新版本的 Flask 了。
 
 如果不使用 git ，那么可以这样获得开发版本:
 
@@ -115,13 +115,13 @@ Finished processing dependencies for Flask==dev
 
 在 Windows 系统中，安装 easy_install 稍微有点麻烦，但还是比较简单的。最简单的 方法是下载并运行 [ez_setup.py](http://peak.telecommunity.com/dist/ez_setup.py) 文件。最简单的运行文件的方法是打开下载文件所在 文件夹，双击这个文件。
 
-接下来，通过把 Python 代码所在文件夹添加到 PATH 环境变量的方法把 easy_install 命令和其他 Python 代码添加到命令搜索目录。操作方法：用鼠标右键 点击桌面上或者开始菜单中的“我的电脑”图标，在弹出的菜单中点击“属性”。然后 点击“高级系统设置”（如果是 Windows XP ，则点击“高级”分页）。接着点击“环境 变量”按钮，双击“系统变量”一节中的“ Path ”变量。这样就可以添加 Python 代码 所在的文件夹了。 注意，与已经存在的值之间要用分号分隔。假设你在缺省路径安装了 Python 2.7 ，那么就应该添加如下内容:
+接下来，通过把 Python 代码所在文件夹添加到 PATH 环境变量的方法把 easy_install 命令和其他 Python 代码添加到命令搜索目录。操作方法：用鼠标右键点击桌面上或者开始菜单中的“我的电脑”图标，在弹出的菜单中点击“属性”。然后 点击“高级系统设置”（如果是 Windows XP ，则点击“高级”分页）。接着点击“环境变量”按钮，双击“系统变量”一节中的“ Path ”变量。这样就可以添加 Python 代码所在的文件夹了。 注意，与已经存在的值之间要用分号分隔。假设你在缺省路径安装了 Python 2.7 ，那么就应该添加如下内容:
 
 ```
 ;C:\Python27\Scripts
 ```
 
-至此安装完成。要检验安装是否正确可以打开命令提示符，并运行 easy_install 命令。如果你使用 Windows Vista 或 Windows 7 ，并打开了权限控制，会提示你需要 管理员权限。
+至此安装完成。要检验安装是否正确可以打开命令提示符，并运行 easy_install 命令。如果你使用 Windows Vista 或 Windows 7 ，并打开了权限控制，会提示你需要管理员权限。
 
 至此，你安装好了 easy_install ，接下来就可以用它来安装 pip 了:
 
