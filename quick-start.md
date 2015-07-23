@@ -25,12 +25,12 @@ $ python hello.py
  * Running on http://127.0.0.1:5000/
 ```
 
-现在，在浏览器中打开 http://127.0.0.1:5000/ ，就 可以看到问候页面了。
+现在，在浏览器中打开 http://127.0.0.1:5000/ ，就可以看到问候页面了。
 
 那么，这些代码是什么意思呢？
 
 1. 首先我们导入了 [Flask](http://dormousehole.readthedocs.org/en/latest/api.html#flask.Flask) 类。这个类的实例将会成为我们的 WSGI 应用。
-2. 接着我们创建了这个类的实例。第一个参数是应用模块或者包的名称。如果你使用一个 单一模块（就像本例），那么应当使用 __name__ ，因为名称会根据这个模块是按 应用方式使用还是作为一个模块导入而发生变化（可能是 '__main__' ，也可能是 实际导入的名称）。这个参数是必需的，这样 Flask 就可以知道在哪里找到模板和 静态文件等东西。更多内容详见 [Flask](http://dormousehole.readthedocs.org/en/latest/api.html#flask.Flask) 文档。
+2. 接着我们创建了这个类的实例。第一个参数是应用模块或者包的名称。如果你使用一个单一模块（就像本例），那么应当使用 __name__ ，因为名称会根据这个模块是按应用方式使用还是作为一个模块导入而发生变化（可能是 '__main__' ，也可能是 实际导入的名称）。这个参数是必需的，这样 Flask 就可以知道在哪里找到模板和静态文件等东西。更多内容详见 [Flask](http://dormousehole.readthedocs.org/en/latest/api.html#flask.Flask) 文档。
 3. 然后我们使用 [route()](http://dormousehole.readthedocs.org/en/latest/api.html#flask.Flask.route) 装饰器来告诉 Flask 触发函数的 URL 。
 4. 函数名称可用于生成相关联的 URL ，并返回需要在用户浏览器中显示的信息。
 5. 最后，使用 [run()](http://dormousehole.readthedocs.org/en/latest/api.html#flask.Flask.run) 函数来运行本地服务器和我们的应用。 if __name__ == '__main__': 确保服务器只会在使用 Python 解释器运行代码的 情况下运行，而不会在作为模块导入时运行。
@@ -42,7 +42,7 @@ $ python hello.py
 
 运行服务器后，会发现只有你自己的电脑可以使用服务，而网络中的其他电脑却不行。 缺省设置就是这样的，因为在调试模式下该应用的用户可以执行你电脑中的任意 Python 代码。
 
-如果你关闭了 调试 或信任你网络中的用户，那么可以让服务器被公开访问。只要像 这样改变 run() 方法的调用:
+如果你关闭了 调试 或信任你网络中的用户，那么可以让服务器被公开访问。只要像这样改变 run() 方法的调用:
 
 ```
 app.run(host='0.0.0.0')
@@ -52,7 +52,7 @@ app.run(host='0.0.0.0')
 
 ## 调试模式
 
-虽然 run() 方法可以方便地启动一个本地开发服务器，但是每次 修改应用之后都需要手动重启服务器。这样不是很方便， Flask 可以做得更好。如果你 打开调试模式，那么服务器会在修改应用之后自动重启，并且当应用出错时还会提供一个 有用的调试器。
+虽然 run() 方法可以方便地启动一个本地开发服务器，但是每次修改应用之后都需要手动重启服务器。这样不是很方便， Flask 可以做得更好。如果你打开调试模式，那么服务器会在修改应用之后自动重启，并且当应用出错时还会提供一个有用的调试器。
 
 打开调试模式有两种方法，一种是在应用对象上设置标志:
 
@@ -95,11 +95,11 @@ def hello():
     return 'Hello World'
 ```
 
-但是能做的不仅仅是这些！你可以动态变化 URL 的某些部分，还可以为一个函数指定多个 规则。
+但是能做的不仅仅是这些！你可以动态变化 URL 的某些部分，还可以为一个函数指定多个规则。
 
 ## 变量规则
 
-通过把 URL 的一部分标记为 <variable_name> 就可以在 URL 中添加变量。标记的 部分会作为关键字参数传递给函数。通过使用 <converter:variable_name> ，可以 选择性的加上一个转换器，为变量指定规则。请看下面的例子:
+通过把 URL 的一部分标记为 <variable_name> 就可以在 URL 中添加变量。标记的部分会作为关键字参数传递给函数。通过使用 <converter:variable_name> ，可以 选择性的加上一个转换器，为变量指定规则。请看下面的例子:
 
 ```
 @app.route('/user/<username>')
@@ -123,7 +123,7 @@ def show_post(post_id):
 
 ### 唯一的 URL / 重定向行为
 
-Flask 的 URL 规则都是基于 Werkzeug 的路由模块的。其背后的理念是保证漂亮的 外观和唯一的 URL 。这个理念来自于 Apache 和更早期的服务器。
+Flask 的 URL 规则都是基于 Werkzeug 的路由模块的。其背后的理念是保证漂亮的外观和唯一的 URL 。这个理念来自于 Apache 和更早期的服务器。
 
 假设有如下两条规则:
 
@@ -137,11 +137,11 @@ def about():
     return 'The about page'
 ```
 
-它们看上去很相近，不同之处在于 URL 定义 中尾部的斜杠。第一个例子中 prjects 的 URL 是中规中举的，尾部有一个斜杠，看起来就如同一个文件夹。访问 一个没有斜杠结尾的 URL 时 Flask 会自动进行重定向，帮你在尾部加上一个斜杠。
+它们看上去很相近，不同之处在于 URL 定义 中尾部的斜杠。第一个例子中 prjects 的 URL 是中规中举的，尾部有一个斜杠，看起来就如同一个文件夹。访问一个没有斜杠结尾的 URL 时 Flask 会自动进行重定向，帮你在尾部加上一个斜杠。
 
-但是在第二个例子中， URL 没有尾部斜杠，因此其行为表现与一个文件类似。如果 访问这个 URL 时添加了尾部斜杠就会得到一个 404 错误。
+但是在第二个例子中， URL 没有尾部斜杠，因此其行为表现与一个文件类似。如果访问这个 URL 时添加了尾部斜杠就会得到一个 404 错误。
 
-为什么这样做？因为这样可以在省略末尾斜杠时仍能继续相关的 URL 。这种重定向 行为与 Apache 和其他服务器一致。同时， URL 仍保持唯一，帮助搜索引擎不重复 索引同一页面。
+为什么这样做？因为这样可以在省略末尾斜杠时仍能继续相关的 URL 。这种重定向行为与 Apache 和其他服务器一致。同时， URL 仍保持唯一，帮助搜索引擎不重复索引同一页面。
 
 
 ## URL 构建
@@ -172,7 +172,7 @@ def about():
 /user/John%20Doe
 ```
 
-（例子中还使用下文要讲到的 t[est_request_context()](http://dormousehole.readthedocs.org/en/latest/api.html#flask.Flask.test_request_context) 方法。这个 方法的作用是告诉 Flask 我们正在处理一个请求，而实际上也许我们正处在交互 Python shell 之中，并没有真正的请求。详见下面的[本地环境](http://dormousehole.readthedocs.org/en/latest/quickstart.html#context-locals) ）。
+（例子中还使用下文要讲到的 t[est_request_context()](http://dormousehole.readthedocs.org/en/latest/api.html#flask.Flask.test_request_context) 方法。这个方法的作用是告诉 Flask 我们正在处理一个请求，而实际上也许我们正处在交互 Python shell 之中，并没有真正的请求。详见下面的[本地环境](http://dormousehole.readthedocs.org/en/latest/quickstart.html#context-locals) ）。
 
 为什么不在把 URL 写死在模板中，反而要动态构建？有三个很好的理由：
 
@@ -198,25 +198,25 @@ def login():
 
 完全不懂 HTTP 方法？没关系，这里给你速成培训一下：
 
-HTTP 方法（通常也被称为“动作”）告诉服务器一个页面请求要 做 什么。以下是常见 的方法：
+HTTP 方法（通常也被称为“动作”）告诉服务器一个页面请求要做 什么。以下是常见的方法：
 
 GET
-浏览器告诉服务器只要 得到 页面上的信息并发送这些信息。这可能是最常见的 方法。
+浏览器告诉服务器只要得到页面上的信息并发送这些信息。这可能是最常见的方法。
 HEAD
-浏览器告诉服务器想要得到信息，但是只要得到 信息头 就行了，页面内容不要。 一个应用应该像接受到一个 GET 请求一样运行，但是不传递实际的内容。在 Flask 中，你根本不必理会这个，下层的 Werkzeug 库会为你处理好。
+浏览器告诉服务器想要得到信息，但是只要得到信息头 就行了，页面内容不要。 一个应用应该像接受到一个 GET 请求一样运行，但是不传递实际的内容。在 Flask 中，你根本不必理会这个，下层的 Werkzeug 库会为你处理好。
 POST
-浏览器告诉服务器想要向 URL 发表 一些新的信息，服务器必须确保数据被保存好 且只保存了一次。 HTML 表单实际上就是使用这个访求向服务器传送数据的。
+浏览器告诉服务器想要向 URL 发表一些新的信息，服务器必须确保数据被保存好且只保存了一次。 HTML 表单实际上就是使用这个访求向服务器传送数据的。
 PUT
-与 POST 方法类似，不同的是服务器可能触发多次储存过程而把旧的值覆盖掉。你 可能会问这样做有什么用？这样做是有原因的。假设在传输过程中连接丢失的情况 下，一个处于浏览器和服务器之间的系统可以在不中断的情况下安全地接收第二次 请求。在这种情况下，使用 POST 方法就无法做到了，因为它只被触发一次。
+与 POST 方法类似，不同的是服务器可能触发多次储存过程而把旧的值覆盖掉。你 可能会问这样做有什么用？这样做是有原因的。假设在传输过程中连接丢失的情况 下，一个处于浏览器和服务器之间的系统可以在不中断的情况下安全地接收第二次请求。在这种情况下，使用 POST 方法就无法做到了，因为它只被触发一次。
 DELETE
 删除给定位置的信息。
 OPTIONS
-为客户端提供一个查询 URL 支持哪些方法的捷径。从 Flask 0.6 开始，自动为你 实现了这个方法。
+为客户端提供一个查询 URL 支持哪些方法的捷径。从 Flask 0.6 开始，自动为你实现了这个方法。
 有趣的是在 HTML4 和 XHTML1 中，表单只能使用 GET 和 POST 方法。但是 JavaScript 和未来的 HTML 标准中可以使用其他的方法。此外， HTTP 近来已经变得相当 流行，浏览器不再只是唯一使用 HTTP 的客户端。比如许多版本控制系统也使用 HTTP 。
 
 ## 静态文件
 
-动态的 web 应用也需要静态文件，一般是 CSS 和 JavaScript 文件。理想情况下你的 服务器已经配置好了为你的提供静态文件的服务。在开发过程中， Flask 也能做好这个 工作。只要在你的包或模块旁边创建一个名为 static 的文件夹就行了。静态文件位于 应用的 /static 中。
+动态的 web 应用也需要静态文件，一般是 CSS 和 JavaScript 文件。理想情况下你的 服务器已经配置好了为你的提供静态文件的服务。在开发过程中， Flask 也能做好这个工作。只要在你的包或模块旁边创建一个名为 static 的文件夹就行了。静态文件位于应用的 /static 中。
 
 使用选定的 'static' 端点就可以生成相应的 URL 。:
 
@@ -228,7 +228,7 @@ url_for('static', filename='style.css')
 
 ## 渲染模板
 
-在 Python 内部生成 HTML 不好玩，且相当笨拙。因为你必须自己负责 HTML 转义，以 确保应用的安全。因此， Flask 自动为你配置的 [Jinja2](http://jinja.pocoo.org/2/) 模板引擎。
+在 Python 内部生成 HTML 不好玩，且相当笨拙。因为你必须自己负责 HTML 转义，以确保应用的安全。因此， Flask 自动为你配置的 [Jinja2](http://jinja.pocoo.org/2/) 模板引擎。
 
 使用 render_template() 方法可以渲染模板，你只要提供模板名称和需要 作为参数传递给模板的变量就行了。下面是一个简单的模板渲染例子:
 
@@ -276,9 +276,9 @@ Flask 会在 templates 文件夹内寻找模板。因此，如果你的应用是
 
 在模板内部你也可以访问 [request](http://dormousehole.readthedocs.org/en/latest/api.html#flask.request) 、[session](http://dormousehole.readthedocs.org/en/latest/api.html#flask.session) 和 [g \[1\]](http://dormousehole.readthedocs.org/en/latest/api.html#flask.g) 对象，以及 [get_flashed_messages()](http://dormousehole.readthedocs.org/en/latest/api.html#flask.get_flashed_messages) 函数。
 
-模板在继承使用的情况下尤其有用，其工作原理 模板继承 方案 文档。简单的说，模板继承可以使每个页面的特定元素（如页头，导航，页尾）保持 一致。
+模板在继承使用的情况下尤其有用，其工作原理 模板继承 方案 文档。简单的说，模板继承可以使每个页面的特定元素（如页头，导航，页尾）保持一致。
 
-自动转义默认开启。因此，如果 name 包含 HTML ，那么会被自动转义。如果你可以 信任某个变量，且知道它是安全的 HTML （例如变量来自一个把 wiki 标记转换为 HTML 的模块），那么可以使用 Markup 类把它标记为安全的。否则请在模板 中使用 |safe 过滤器。更多例子参见 Jinja 2 文档。
+自动转义默认开启。因此，如果 name 包含 HTML ，那么会被自动转义。如果你可以信任某个变量，且知道它是安全的 HTML （例如变量来自一个把 wiki 标记转换为 HTML 的模块），那么可以使用 Markup 类把它标记为安全的。否则请在模板中使用 |safe 过滤器。更多例子参见 Jinja 2 文档。
 
 下面简单介绍一下 Markup 类的工作方式：
 
@@ -294,11 +294,11 @@ u'Marked up \xbb HTML'
 
 Changed in version 0.5: 自动转义不再为所有模板开启，只为扩展名为 .html 、 .htm 、 .xml 和 .xhtml 开启。从字符串载入的模板将关闭自动转义。
 
-[1]	不理解什么是 g 对象？它是某个可以根据需要储存信息的 东西。更多信息参见 g 对象的文档和[在 Flask 中使用 SQLite 3 文档](http://dormousehole.readthedocs.org/en/latest/patterns/sqlite3.html#sqlite3)。
+[1]	不理解什么是 g 对象？它是某个可以根据需要储存信息的东西。更多信息参见 g 对象的文档和[在 Flask 中使用 SQLite 3 文档](http://dormousehole.readthedocs.org/en/latest/patterns/sqlite3.html#sqlite3)。
 
 ## 操作请求数据
 
-对于 web 应用来说对客户端向服务器发送的数据作出响应很重要。在 Flask 中由全局 对象 request 来提供请求信息。如果你有一些 Python 基础，那么可能 会奇怪：既然这个对象是全局的，怎么还能保持线程安全？答案是本地环境：
+对于 web 应用来说对客户端向服务器发送的数据作出响应很重要。在 Flask 中由全局对象 request 来提供请求信息。如果你有一些 Python 基础，那么可能 会奇怪：既然这个对象是全局的，怎么还能保持线程安全？答案是本地环境：
 
 ### 本地环境
 
@@ -306,7 +306,7 @@ Changed in version 0.5: 自动转义不再为所有模板开启，只为扩展�
 如果你想了解其工作原理和如何测试，请阅读本节，否则可以跳过本节。
 某些对象在 Flask 中是全局对象，但是不是通常意义下的全局对象。这些对象实际上是 特定环境下本地对象的代理。真拗口！但还是很容易理解的。
 
-设想现在处于处理线程的环境中。一个请求进来了，服务器决定生成一个新线程（或者 叫其他什么名称的东西，这个下层的东西能够处理包括线程在内的并发系统）。当 Flask 开始其内部请求处理时会把当前线程作为活动环境，并把当前应用和 WSGI 环境 绑定到这个环境（线程）。它以一种聪明的方式使得一个应用可以在不中断的情况下 调用另一个应用。
+设想现在处于处理线程的环境中。一个请求进来了，服务器决定生成一个新线程（或者 叫其他什么名称的东西，这个下层的东西能够处理包括线程在内的并发系统）。当 Flask 开始其内部请求处理时会把当前线程作为活动环境，并把当前应用和 WSGI 环境 绑定到这个环境（线程）。它以一种聪明的方式使得一个应用可以在不中断的情况下调用另一个应用。
 
 这对你有什么用？基本上你可以完全不必理会。这个只有在做单元测试时才有用。在测试 时会遇到由于没有请求对象而导致依赖于请求的代码会突然崩溃的情况。对策是自己创建 一个请求对象并绑定到环境。最简单的单元测试解决方案是使用 [test_request_context()](http://dormousehole.readthedocs.org/en/latest/api.html#flask.Flask.test_request_context) 环境管理器。通过使用 with 语句可以 绑定一个测试请求，以便于交互。例如:
 
@@ -353,7 +353,7 @@ def login():
     return render_template('login.html', error=error)
 ```
 
-当 form 属性中不存在这个键时会发生什么？会引发一个 [KeyError](http://docs.python.org/dev/library/exceptions.html#KeyError) 。如果你不 像捕捉一个标准错误一样捕捉 KeyError ，那么会显示一个 HTTP 400 Bad Request 错误页面。因此，多数情况下你不必处理这个问题。
+当 form 属性中不存在这个键时会发生什么？会引发一个 [KeyError](http://docs.python.org/dev/library/exceptions.html#KeyError) 。如果你不像捕捉一个标准错误一样捕捉 KeyError ，那么会显示一个 HTTP 400 Bad Request 错误页面。因此，多数情况下你不必处理这个问题。
 
 要操作 URL （如 ?key=value ）中提交的参数可以使用 args 属性:
 
@@ -369,7 +369,7 @@ searchword = request.args.get('key', '')
 
 用 Flask 处理文件上传很容易，只要确保不要忘记在你的 HTML 表单中设置 enctype="multipart/form-data" 属性就可以了。否则浏览器将不会传送你的文件。
 
-已上传的文件被储存在内存或文件系统的临时位置。你可以通过请求对象 files 属性来访问上传的文件。每个上传的文件都储存在这个 字典型属性中。这个属性基本和标准 Python file 对象一样，另外多出一个 用于把上传文件保存到服务器的文件系统中的 [save()](http://werkzeug.pocoo.org/docs/datastructures/#werkzeug.datastructures.FileStorage.save) 方法。下例展示其如何运作:
+已上传的文件被储存在内存或文件系统的临时位置。你可以通过请求对象 files 属性来访问上传的文件。每个上传的文件都储存在这个 字典型属性中。这个属性基本和标准 Python file 对象一样，另外多出一个用于把上传文件保存到服务器的文件系统中的 [save()](http://werkzeug.pocoo.org/docs/datastructures/#werkzeug.datastructures.FileStorage.save) 方法。下例展示其如何运作:
 
 ```
 from flask import request
@@ -434,7 +434,7 @@ def index():
 
 ## 重定向和错误
 
-使用 [redirect()](http://dormousehole.readthedocs.org/en/latest/api.html#flask.redirect) 函数可以重定向。使用 [abort()](http://dormousehole.readthedocs.org/en/latest/api.html#flask.abort) 可以更早 退出请求，并返回错误代码:
+使用 [redirect()](http://dormousehole.readthedocs.org/en/latest/api.html#flask.redirect) 函数可以重定向。使用 [abort()](http://dormousehole.readthedocs.org/en/latest/api.html#flask.abort) 可以更早退出请求，并返回错误代码:
 
 ```
 from flask import abort, redirect, url_for
@@ -465,12 +465,12 @@ def page_not_found(error):
 
 ## 关于响应
 
-视图函数的返回值会自动转换为一个响应对象。如果返回值是一个字符串，那么会被转换 为一个包含作为响应体的字符串、一个 200 OK 出错代码 和一个 text/html MIME 类型的响应对象。以下是转换的规则：
+视图函数的返回值会自动转换为一个响应对象。如果返回值是一个字符串，那么会被转换为一个包含作为响应体的字符串、一个 200 OK 出错代码 和一个 text/html MIME 类型的响应对象。以下是转换的规则：
 
 1. 如果视图要返回的是一个响应对象，那么就直接返回它。
-2. 如果要返回的是一个字符串，那么根据这个字符串和缺省参数生成一个用于返回的 响应对象。
-3. 如果要返回的是一个元组，那么元组中的项目可以提供额外的信息。元组中必须至少 包含一个项目，且项目应当由 (response, status, headers) 组成。 status 的值会重载状态代码， headers 是一个由额外头部值组成的列表或字典。
-4. 如果以上都不是，那么 Flask 会假定返回值是一个有效的 WSGI 应用并把它转换为 一个响应对象。
+2. 如果要返回的是一个字符串，那么根据这个字符串和缺省参数生成一个用于返回的响应对象。
+3. 如果要返回的是一个元组，那么元组中的项目可以提供额外的信息。元组中必须至少包含一个项目，且项目应当由 (response, status, headers) 组成。 status 的值会重载状态代码， headers 是一个由额外头部值组成的列表或字典。
+4. 如果以上都不是，那么 Flask 会假定返回值是一个有效的 WSGI 应用并把它转换为一个响应对象。
 如果想要在视图内部掌控响应对象的结果，那么可以使用 [make_response()](http://dormousehole.readthedocs.org/en/latest/api.html#flask.make_response) 函数。
 
 设想有如下视图：
@@ -481,7 +481,7 @@ def not_found(error):
     return render_template('error.html'), 404
 ```
 
-可以使用 make_response() 包裹返回表达式，获得响应对象，并对该对象 进行修改，然后再返回：
+可以使用 make_response() 包裹返回表达式，获得响应对象，并对该对象进行修改，然后再返回：
 
 ```
 @app.errorhandler(404)
@@ -556,9 +556,9 @@ app.secret_key = 'A0Zr98j/3yX R~XHH!jmN]LWX/,?RT'
 New in version 0.3.
 ```
 
-有时候可能会遇到数据出错需要纠正的情况。例如因为用户篡改了数据或客户端代码出错 而导致一个客户端代码向服务器发送了明显错误的 HTTP 请求。多数时候在类似情况下 返回 400 Bad Request 就没事了，但也有不会返回的时候，而代码还得继续运行 下去。
+有时候可能会遇到数据出错需要纠正的情况。例如因为用户篡改了数据或客户端代码出错 而导致一个客户端代码向服务器发送了明显错误的 HTTP 请求。多数时候在类似情况下 返回 400 Bad Request 就没事了，但也有不会返回的时候，而代码还得继续运行下去。
 
-这时候就需要使用日志来记录这些不正常的东西了。自从 Flask 0.3 后就已经为你配置好 了一个日志工具。
+这时候就需要使用日志来记录这些不正常的东西了。自从 Flask 0.3 后就已经为你配置好了一个日志工具。
 
 以下是一些日志调用示例:
 
