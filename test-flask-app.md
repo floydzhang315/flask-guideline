@@ -8,7 +8,7 @@ Flask 提供的测试渠道是公开 Werkzeug 的 [Client](http://werkzeug.pocoo
 
 ## 应用
 
-首先，我们需要一个用来测试的应用。我们将使用 教程 中的应用。如果你还 没有这个应用，可以下载[示例代码](http://github.com/mitsuhiko/flask/tree/master/examples/flaskr/) 。
+首先，我们需要一个用来测试的应用。我们将使用教程中的应用。如果你还 没有这个应用，可以下载[示例代码](http://github.com/mitsuhiko/flask/tree/master/examples/flaskr/) 。
 
 ## 测试骨架
 
@@ -36,11 +36,11 @@ if __name__ == '__main__':
     unittest.main()
 ```
 
-[setUp()](http://docs.python.org/dev/library/unittest.html#unittest.TestCase.setUp) 方法中会创建一个新的测试客户端并初始化一个新的 数据库。在每个独立的测试函数运行前都会调用这个方法。 [tearDown()](http://docs.python.org/dev/library/unittest.html#unittest.TestCase.tearDown) 方法的功能是在测试结束后关闭文件，并在文件 系统中删除数据库文件。另外在设置中 TESTING 标志开启的，这意味着在请求时关闭 错误捕捉，以便于在执行测试请求时得到更好的错误报告。
+[setUp()](http://docs.python.org/dev/library/unittest.html#unittest.TestCase.setUp) 方法中会创建一个新的测试客户端并初始化一个新的数据库。在每个独立的测试函数运行前都会调用这个方法。 [tearDown()](http://docs.python.org/dev/library/unittest.html#unittest.TestCase.tearDown) 方法的功能是在测试结束后关闭文件，并在文件系统中删除数据库文件。另外在设置中 TESTING 标志开启的，这意味着在请求时关闭 错误捕捉，以便于在执行测试请求时得到更好的错误报告。
 
-测试客户端会给我们提供一个简单的应用接口。我们可以通过这个接口向应用发送测试 请求。客户端还可以追踪 cookies 。
+测试客户端会给我们提供一个简单的应用接口。我们可以通过这个接口向应用发送测试请求。客户端还可以追踪 cookies 。
 
-因为 SQLite3 是基于文件系统的，所以我们可以方便地使用临时文件模块来创建一个临时 数据库并初始化它。 [mkstemp()](http://docs.python.org/dev/library/tempfile.html#tempfile.mkstemp) 函数返回两个东西：一个低级别的文件 句柄和一个随机文件名。这个文件名后面将作为我们的数据库名称。我们必须把句柄保存 到 db_fd 中，以便于以后用 [os.close()](http://docs.python.org/dev/library/os.html#os.close) 函数来关闭文件。
+因为 SQLite3 是基于文件系统的，所以我们可以方便地使用临时文件模块来创建一个临时数据库并初始化它。 [mkstemp()](http://docs.python.org/dev/library/tempfile.html#tempfile.mkstemp) 函数返回两个东西：一个低级别的文件 句柄和一个随机文件名。这个文件名后面将作为我们的数据库名称。我们必须把句柄保存到 db_fd 中，以便于以后用 [os.close()](http://docs.python.org/dev/library/os.html#os.close) 函数来关闭文件。
 
 如果现在进行测试，那么会输出以下内容:
 
@@ -76,9 +76,9 @@ class FlaskrTestCase(unittest.TestCase):
         assert 'No entries here so far' in rv.data
 ```
 
-注意，我们的调试函数都是以 test 开头的。这样 unittest 就会自动识别这些 是用于测试的函数并运行它们。
+注意，我们的调试函数都是以 test 开头的。这样 unittest 就会自动识别这些是用于测试的函数并运行它们。
 
-通过使用 self.app.get ，可以向应用的指定 URL 发送 HTTP GET 请求，其返回的是 一个 ~flask.Flask.response_class 对象。我们可以使用 data 属性来检查应用的返回值（字符串 类型）。在本例中，我们检查输出是否包含 'No entries here so far' 。
+通过使用 self.app.get ，可以向应用的指定 URL 发送 HTTP GET 请求，其返回的是一个 ~flask.Flask.response_class 对象。我们可以使用 data 属性来检查应用的返回值（字符串类型）。在本例中，我们检查输出是否包含 'No entries here so far' 。
 
 再次运行测试，会看到通过了一个测试:
 
@@ -93,7 +93,7 @@ OK
 
 ## 登录和注销
 
-我们应用的主要功能必须登录以后才能使用，因此必须测试应用的登录和注销。测试的 方法是使用规定的数据（用户名和密码）向应用发出登录和注销的请求。因为登录和注销 后会重定向到别的页面，因此必须告诉客户端使用 follow_redirects 追踪重定向。
+我们应用的主要功能必须登录以后才能使用，因此必须测试应用的登录和注销。测试的 方法是使用规定的数据（用户名和密码）向应用发出登录和注销的请求。因为登录和注销后会重定向到别的页面，因此必须告诉客户端使用 follow_redirects 追踪重定向。
 
 在 FlaskrTestCase 类中添加以下两个方法:
 
@@ -167,7 +167,7 @@ with app.test_request_context('/?name=Peter'):
 
 其他与环境绑定的对象也可以这样使用。
 
-如果你必须使用不同的配置来测试应用，而且没有什么好的测试方法，那么可以考虑使用 应用工厂（参见 应用工厂 ）。
+如果你必须使用不同的配置来测试应用，而且没有什么好的测试方法，那么可以考虑使用应用工厂（参见应用工厂 ）。
 
 注意，在测试请求环境中 before_request() 函数和 after_request() 函数不会被自动调用。但是当调试请求环境离开 with 块时会执行 teardown_request() 函数。如果需要 before_request() 函数和正常情况下一样被调用，那么你必须调用 [preprocess_request()](http://dormousehole.readthedocs.org/en/latest/api.html#flask.Flask.preprocess_request)
 
@@ -198,7 +198,7 @@ with app.test_request_context('/?name=Peter'):
 
 New in version 0.10.
 
-通常情况下，我们会把用户认证信息和数据库连接储存到应用环境或者 flask.g 对象中，并在第一次使用前准备好，然后在断开时删除。假设应用中 得到当前用户的代码如下:
+通常情况下，我们会把用户认证信息和数据库连接储存到应用环境或者 flask.g 对象中，并在第一次使用前准备好，然后在断开时删除。假设应用中得到当前用户的代码如下:
 
 ```
 def get_user():
@@ -243,7 +243,7 @@ with user_set(app, my_user):
 
 New in version 0.4.
 
-有时候这种情形是有用的：触发一个常规请求，但是保持环境以便于做一点额外 的事情。 在 Flask 0.4 之后可以在 with 语句中使用 test_client() 来 实现:
+有时候这种情形是有用的：触发一个常规请求，但是保持环境以便于做一点额外的事情。 在 Flask 0.4 之后可以在 with 语句中使用 test_client() 来 实现:
 
 ```
 app = flask.Flask(__name__)
