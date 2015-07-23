@@ -5,7 +5,7 @@ Flask 自 0.6 版本开始在内部支持信号。信号功能由优秀的 [blin
 
 什么是信号？当核心框架的其他地方或另一个 Flask 扩展中发生动作时，信号通过发送 通知来帮助你解耦应用。简言之，信号允许某个发送者通知接收者有事情发生了。
 
-Flask 自身有许多信号，其他扩展可能还会带来更多信号。请记住，信号使用目的是通知 接收者，不应该鼓励接收者修改数据。你会注意到信号的功能与一些内建的装饰器类似（ 如 request_started 与 before_request() 非常 相似），但是它们的工作原理不同。例如核心的 before_request() 处理器以一定的顺序执行，并且可以提前退出请求，返回一个响应。相反，所有的信号 处理器是乱序执行的，并且不修改任何数据。
+Flask 自身有许多信号，其他扩展可能还会带来更多信号。请记住，信号使用目的是通知 接收者，不应该鼓励接收者修改数据。你会注意到信号的功能与一些内建的装饰器类似（ 如 request_started 与 before_request() 非常 相似），但是它们的工作原理不同。例如核心的 before_request() 处理器以一定的顺序执行，并且可以提前退出请求，返回一个响应。相反，所有的信号处理器是乱序执行的，并且不修改任何数据。
 
 信号的最大优势是可以安全快速的订阅。比如，在单元测试中这些临时订阅十分有用。 假设你想知道请求需要渲染哪个模块，信号可以给你答案。
 
@@ -15,7 +15,7 @@ Flask 自身有许多信号，其他扩展可能还会带来更多信号。请�
 
 所有核心 Flask 信号的发送者是应用本身。因此当订阅信号时请指定发送者，除非你真的 想要收听应用的所有信号。当你正在开发一个扩展时，尤其要注意这点。
 
-下面是一个环境管理器的辅助工具，可用于在单元测试中辨别哪个模板被渲染了，哪些 变量被传递给了模板:
+下面是一个环境管理器的辅助工具，可用于在单元测试中辨别哪个模板被渲染了，哪些变量被传递给了模板:
 
 ```
 from flask import template_rendered
@@ -47,9 +47,9 @@ with captured_templates(app) as templates:
 
 为了使 Flask 在向信号中添加新的参数时不发生错误，请确保使用一个额外的 **extra 参数。
 
-在 with 代码块中，所有由 app 渲染的模板会被记录在 templates 变量中。每当有 模板被渲染，模板对象及环境就会追加到变量中。
+在 with 代码块中，所有由 app 渲染的模板会被记录在 templates 变量中。每当有模板被渲染，模板对象及环境就会追加到变量中。
 
-另外还有一个方便的辅助方法（ [connected_to()](http://discorporate.us/projects/Blinker/docs/1.1/api.html#blinker.base.Signal.connected_to) ）。它 允许临时把一个使用环境对象的函数订阅到一个信号。因为环境对象的返回值不能被 指定，所以必须把列表作为参数:
+另外还有一个方便的辅助方法（ [connected_to()](http://discorporate.us/projects/Blinker/docs/1.1/api.html#blinker.base.Signal.connected_to) ）。它允许临时把一个使用环境对象的函数订阅到一个信号。因为环境对象的返回值不能被指定，所以必须把列表作为参数:
 
 ```
 from flask import template_rendered
@@ -75,7 +75,7 @@ Blinker version 1.1 版本中增加了 [connected_to()](http://discorporate.us/p
 
 ## 创建信号
 
-如果相要在你自己的应用中使用信号，那么可以直接使用 blinker 库。最常见的,也是最 推荐的方法是在自定义的 [Namespace](http://discorporate.us/projects/Blinker/docs/1.1/api.html#blinker.base.Namespace) 中命名信号:
+如果相要在你自己的应用中使用信号，那么可以直接使用 blinker 库。最常见的,也是最推荐的方法是在自定义的 [Namespace](http://discorporate.us/projects/Blinker/docs/1.1/api.html#blinker.base.Namespace) 中命名信号:
 
 ```
 from blinker import Namespace
@@ -92,7 +92,7 @@ model_saved = my_signals.signal('model-saved')
 
 ### 扩展开发者注意
 
-如果你正在编写一个 Flask 扩展，并且想要妥善处理 blinker 安装缺失的情况，那么 可以使用 [flask.signals.Namespace](http://dormousehole.readthedocs.org/en/latest/api.html#flask.signals.Namespace) 类。
+如果你正在编写一个 Flask 扩展，并且想要妥善处理 blinker 安装缺失的情况，那么可以使用 [flask.signals.Namespace](http://dormousehole.readthedocs.org/en/latest/api.html#flask.signals.Namespace) 类。
 
 ## 发送信号
 
@@ -106,7 +106,7 @@ class Model(object):
         model_saved.send(self)
 ```
 
-请谨慎选择发送者。如果是一个发送信号的类，请把 self 作为发送者。如果发送信号 的是一个随机的函数，那么可以把 current_app._get_current_object() 作为 发送者。
+请谨慎选择发送者。如果是一个发送信号的类，请把 self 作为发送者。如果发送信号的是一个随机的函数，那么可以把 current_app._get_current_object() 作为发送者。
 
 ### 传递代理作为发送者
 
@@ -175,7 +175,7 @@ request_finished.connect(log_response, app)
 flask.got_request_exception
 ```
 
-这个信号发送于请求进行中发生异常的时候。它的发送 早于 标准异常处理介于。 在调试模式下，虽然没有异常处理，但发生异常时也发送这个信号。信号传递的 exception 是异常对象。
+这个信号发送于请求进行中发生异常的时候。它的发送早于标准异常处理介于。 在调试模式下，虽然没有异常处理，但发生异常时也发送这个信号。信号传递的 exception 是异常对象。
 
 订阅示例:
 
@@ -188,7 +188,7 @@ got_request_exception.connect(log_exception, app)
 flask.request_tearing_down
 ```
 
-这个信号发送于请求崩溃的时候，不管是否引发异常。目前，侦听此信号的函数在一般 崩溃处理器后调用，但是没有什么东西可用。
+这个信号发送于请求崩溃的时候，不管是否引发异常。目前，侦听此信号的函数在一般崩溃处理器后调用，但是没有什么东西可用。
 
 订阅示例:
 
@@ -215,10 +215,10 @@ from flask import request_tearing_down
 appcontext_tearing_down.connect(close_db_connection, app)
 ```
 
-这还会传递一个 exc 关键字参数，如果这个参数存在的话。这个参数是引发崩溃的 异常的引用。
+这还会传递一个 exc 关键字参数，如果这个参数存在的话。这个参数是引发崩溃的异常的引用。
 
 flask.appcontext_pushed
-当一个应用的环境被压入时，应用会发送这个信号。这个信号通常用于在单元测试中 临时钩接信息。例如可以用于改变 g 对象中现存的资源。
+当一个应用的环境被压入时，应用会发送这个信号。这个信号通常用于在单元测试中临时钩接信息。例如可以用于改变 g 对象中现存的资源。
 
 用法示例:
 
