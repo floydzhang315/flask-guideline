@@ -55,7 +55,7 @@ class UserView(ListView):
         return User.query.all()
 ```
 
-这样做对于示例中的小应用没有什么用途，但是可以足够清楚的解释基本原理。当你有 一个基础视图类时，问题就来了：类的 self 指向什么？解决之道是：每当请求发出时 就创建一个类的新实例，并且根据来自 URL 规则的参数调用 dispatch_request() 方法。类本身根据参数实例化后传递给 as_view() 函数。例如可以这样写一个类:
+这样做对于示例中的小应用没有什么用途，但是可以足够清楚的解释基本原理。当你有一个基础视图类时，问题就来了：类的 self 指向什么？解决之道是：每当请求发出时就创建一个类的新实例，并且根据来自 URL 规则的参数调用 dispatch_request() 方法。类本身根据参数实例化后传递给 as_view() 函数。例如可以这样写一个类:
 
 ```
 class RenderTemplateView(View):
@@ -74,7 +74,7 @@ app.add_url_rule('/about', view_func=RenderTemplateView.as_view(
 
 ## 方法提示
 
-可插拨视图可以像普通函数一样加入应用。加入的方式有两种，一种是使用 route() ，另一种是使用更好的 add_url_rule() 。在加入的视图中应该提供所使用的 HTTP 方法的 名称。提供名称的方法是使用 methods 属性:
+可插拨视图可以像普通函数一样加入应用。加入的方式有两种，一种是使用 route() ，另一种是使用更好的 add_url_rule() 。在加入的视图中应该提供所使用的 HTTP 方法的名称。提供名称的方法是使用 methods 属性:
 
 ```
 class MyView(View):
@@ -108,7 +108,7 @@ class UserAPI(MethodView):
 app.add_url_rule('/users/', view_func=UserAPI.as_view('users'))
 ```
 
-使用这种方式，不必提供 [methods](http://dormousehole.readthedocs.org/en/latest/api.html#flask.views.View.methods) 属性，它会自动使用相应 的类方法。
+使用这种方式，不必提供 [methods](http://dormousehole.readthedocs.org/en/latest/api.html#flask.views.View.methods) 属性，它会自动使用相应的类方法。
 
 ## 装饰视图
 
@@ -134,7 +134,7 @@ class UserAPI(MethodView):
     decorators = [user_required]
 ```
 
-请牢记：因为从调用者的角度来看，类的 self 被隐藏了，所以不能在类的方法上单独 使用装饰器。
+请牢记：因为从调用者的角度来看，类的 self 被隐藏了，所以不能在类的方法上单独使用装饰器。
 
 ## 用于 API 的方法视图
 
@@ -175,7 +175,7 @@ class UserAPI(MethodView):
         pass
 ```
 
-那么如何把这个视图挂接到路由系统呢？方法是增加两个规则并为每个规则显式声明 方法:
+那么如何把这个视图挂接到路由系统呢？方法是增加两个规则并为每个规则显式声明方法:
 
 ```
 user_view = UserAPI.as_view('user_api')
