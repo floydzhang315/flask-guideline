@@ -28,7 +28,7 @@
     /templates
 ```
 
-flaskr 文件夹不是一个 Python 包，只是一个用来存放我们文件的地方。我们将把以后 要用到的数据库模式和主模块放在这个文件夹中。 static 文件夹中的文件是用于供 应用用户通过 HTTP 访问的文件，主要是 CSS 和 javascript 文件。 Flask 将会在 templates 文件夹中搜索 Jinja2 模板，所有在教程中的模板都放在 templates 文件夹中。
+flaskr 文件夹不是一个 Python 包，只是一个用来存放我们文件的地方。我们将把以后要用到的数据库模式和主模块放在这个文件夹中。 static 文件夹中的文件是用于供应用用户通过 HTTP 访问的文件，主要是 CSS 和 javascript 文件。 Flask 将会在 templates 文件夹中搜索 Jinja2 模板，所有在教程中的模板都放在 templates 文件夹中。
 
 ## 步骤 1 ：数据库模式
 
@@ -47,7 +47,7 @@ create table entries (
 
 ## 步骤 2 ：应用构建代码
 
-现在我们已经准备好了数据库模式了，下面来创建应用模块。我们把模块命名为 flaskr.py ，并放在 flaskr 文件夹中。为了方便初学者学习，我们把库的导入与 相关配置放在了一起。对于小型应用来说，可以把配置直接放在模块中。但是更加清晰的 方案是把配置放在一个独立的 .ini 或 .py 文件中，并在模块中导入配置的值。
+现在我们已经准备好了数据库模式了，下面来创建应用模块。我们把模块命名为 flaskr.py ，并放在 flaskr 文件夹中。为了方便初学者学习，我们把库的导入与相关配置放在了一起。对于小型应用来说，可以把配置直接放在模块中。但是更加清晰的 方案是把配置放在一个独立的 .ini 或 .py 文件中，并在模块中导入配置的值。
 
 在 flaskr.py 文件中:
 
@@ -73,7 +73,7 @@ app = Flask(__name__)
 app.config.from_object(__name__)
 ```
 
-[from_object()](http://dormousehole.readthedocs.org/en/latest/api.html#flask.Config.from_object) 会查看给定的对象（如果该对象是一个字符串就会 直接导入它），搜索对象中所有变量名均为大字字母的变量。在我们的应用中，已经将配 置写在前面了。你可以把这些配置放到一个独立的文件中。
+[from_object()](http://dormousehole.readthedocs.org/en/latest/api.html#flask.Config.from_object) 会查看给定的对象（如果该对象是一个字符串就会直接导入它），搜索对象中所有变量名均为大字字母的变量。在我们的应用中，已经将配 置写在前面了。你可以把这些配置放到一个独立的文件中。
 
 通常，从一个配置文件中导入配置是比较好的做法，我们使用 [from_envvar()](http://dormousehole.readthedocs.org/en/latest/api.html#flask.Config.from_envvar) 来完成这个工作，把上面的 from_object() 一行替换为:
 
@@ -81,11 +81,11 @@ app.config.from_object(__name__)
 app.config.from_envvar('FLASKR_SETTINGS', silent=True)
 ```
 
-这样做就可以设置一个 FLASKR_SETTINGS 的环境变量来指定一个配置文件，并 根据该文件来重载缺省的配置。 silent 开关的作用是告诉 Flask 如果没有这个环境变量 不要报错。
+这样做就可以设置一个 FLASKR_SETTINGS 的环境变量来指定一个配置文件，并根据该文件来重载缺省的配置。 silent 开关的作用是告诉 Flask 如果没有这个环境变量 不要报错。
 
-secret_key （密钥）用于保持客户端会话安全，请谨慎地选择密钥，并尽可能的使它 复杂而且不容易被猜到。 DEBUG 标志用于开关交互调试器。因为调试模式允许用户执行 服务器上的代码，所以 永远不要在生产环境中打开调试模式 ！
+secret_key （密钥）用于保持客户端会话安全，请谨慎地选择密钥，并尽可能的使 复杂而且不容易被猜到。 DEBUG 标志用于开关交互调试器。因为调试模式允许用户执行服务器上的代码，所以永远不要在生产环境中打开调试模式 ！
 
-我们还添加了一个方便连接指定数据库的方法。这个方法可以用于在请求时打开连接，也 可以用于 Python 交互终端或代码中。以后会派上用场。
+我们还添加了一个方便连接指定数据库的方法。这个方法可以用于在请求时打开连接，也可以用于 Python 交互终端或代码中。以后会派上用场。
 
 ```
 def connect_db():
@@ -124,7 +124,7 @@ python flaskr.py
 sqlite3 /tmp/flaskr.db < schema.sql
 ```
 
-上述方法的不足之处是需要额外的 sqlite3 命令，但这个命令不是每个系统都有的。而且还必须提供数据库的路径，容易出错。因此更好的方法是在应用中添加一个数据库初始化 函数。
+上述方法的不足之处是需要额外的 sqlite3 命令，但这个命令不是每个系统都有的。而且还必须提供数据库的路径，容易出错。因此更好的方法是在应用中添加一个数据库初始化函数。
 
 添加的方法是：首先从 contextlib 库中导入 [contextlib.closing()](http://docs.python.org/dev/library/contextlib.html#contextlib.closing) 函数，即在 flaskr.py 文件的导入部分添加如下内容:
 
@@ -142,9 +142,9 @@ def init_db():
         db.commit()
 ```
 
-[closing()](http://docs.python.org/dev/library/contextlib.html#contextlib.closing) 帮助函数允许我们在 with 代码块保持数据库连接 打开。应用对象的 [open_resource()](http://dormousehole.readthedocs.org/en/latest/api.html#flask.Flask.open_resource) 方法支持也支持这个功能， 可以在 with 代码块中直接使用。这个函数打开一个位于来源位置（你的 flaskr 文件夹）的文件并允许你读取文件的内容。这里我们用于在数据库连接上执行 代码。
+[closing()](http://docs.python.org/dev/library/contextlib.html#contextlib.closing) 帮助函数允许我们在 with 代码块保持数据库连接打开。应用对象的 [open_resource()](http://dormousehole.readthedocs.org/en/latest/api.html#flask.Flask.open_resource) 方法支持也支持这个功能， 可以在 with 代码块中直接使用。这个函数打开一个位于来源位置（你的 flaskr 文件夹）的文件并允许你读取文件的内容。这里我们用于在数据库连接上执行代码。
 
-当我们连接到数据库时，我们得到一个提供指针的连接对象（本例中的 db ）。这个 指针有一个方法可以执行完整的代码。最后我们提供要做的修改。 SQLite 3 和其他 事务型数据库只有在显式提交时才会真正提交。
+当我们连接到数据库时，我们得到一个提供指针的连接对象（本例中的 db ）。这个 指针有一个方法可以执行完整的代码。最后我们提供要做的修改。 SQLite 3 和其他事务型数据库只有在显式提交时才会真正提交。
 
 现在可以创建数据库了。打开 Python shell ，导入，调用函数:
 
@@ -159,7 +159,7 @@ def init_db():
 
 ## 步骤 4 ：请求数据库连接
 
-现在我们已经学会如何打开并在代码中使用数据库连接，但是如何优雅地在请求时使用它 呢？我们会在每一个函数中用到数据库连接，因此有必要在请求之前初始化连接，并在 请求之后关闭连接。
+现在我们已经学会如何打开并在代码中使用数据库连接，但是如何优雅地在请求时使用它 呢？我们会在每一个函数中用到数据库连接，因此有必要在请求之前初始化连接，并在请求之后关闭连接。
 
 Flask 中可以使用 [before_request()](http://dormousehole.readthedocs.org/en/latest/api.html#flask.Flask.before_request) 、 [after_request()](http://dormousehole.readthedocs.org/en/latest/api.html#flask.Flask.after_request) 和 [teardown_request()](http://dormousehole.readthedocs.org/en/latest/api.html#flask.Flask.teardown_request) 装饰器达到这个目的:
 
@@ -178,9 +178,9 @@ def teardown_request(exception):
 
 使用 before_request() 装饰的函数会在请求之前调用，且不传递 参数。使用 after_request() 装饰的函数会在请求之后调用，且 传递发送给客户端响应对象。它们必须传递响应对象，所以在出错的情况下就不会执行。 因此我们就要用到 teardown_request() 装饰器了。这个装饰器下 的函数在响应对象构建后被调用。它们不允许修改请求，并且它们的返回值被忽略。如果 请求过程中出错，那么这个错误会传递给每个函数；否则传递 None 。
 
-我们把数据库连接保存在 Flask 提供的特殊的 g 对象中。这个对象与 每一个请求是一一对应的，并且只在函数内部有效。不要在其它对象中储存类似信息， 因为在多线程环境下无效。这个特殊的 g 对象会在后台神奇的工作，保 证系统正常运行。
+我们把数据库连接保存在 Flask 提供的特殊的 g 对象中。这个对象与 每一个请求是一一对应的，并且只在函数内部有效。不要在其它对象中储存类似信息， 因为在多线程环境下无效。这个特殊的 g 对象会在后台神奇的工作，保证系统正常运行。
 
-若想更好地处理这种资源，请参阅 在 [Flask 中使用 SQLite 3](http://dormousehole.readthedocs.org/en/latest/patterns/sqlite3.html#sqlite3) 。
+若想更好地处理这种资源，请参阅在 [Flask 中使用 SQLite 3](http://dormousehole.readthedocs.org/en/latest/patterns/sqlite3.html#sqlite3) 。
 
 
 ### Hint
@@ -189,7 +189,7 @@ def teardown_request(exception):
 
 如果你按教程一步一步读下来，那么可能会疑惑应该把这个步骤和以后的代码放在哪 里？比较有条理的做法是把这些模块级别的函数放在一起，并把新的 before_request 和 teardown_request 函数放在前文的 init_db 函数 下面（即按照教程的顺序放置）。
 
-如果你已经晕头转向了，那么你可以参考一下 示例源代码 。在 Flask 中，你可以 把应用的所有代码都放在同一个 Python 模块中。但是你没有必要这样做，尤其是当你的应用变大了的时候，更不应当这样。
+如果你已经晕头转向了，那么你可以参考一下 示例源代码 。在 Flask 中，你可以把应用的所有代码都放在同一个 Python 模块中。但是你没有必要这样做，尤其是当你的应用变大了的时候，更不应当这样。
 
 
 ## 步骤 5 ：视图函数
@@ -197,7 +197,7 @@ def teardown_request(exception):
 现在数据库连接弄好了，接着开始写视图函数。我们共需要四个视图函数：
 
 ### 显示条目
-这个视图显示所有数据库中的条目。它绑定应用的根地址，并从数据库中读取 title 和 text 字段。 id 最大的记录（最新的条目）在最上面。从指针返回的记录集是一个包含 select 语句查询结果的元组。对于教程应用这样的小应用，做到这样就已经够好了。但是 你可能想要把结果转换为字典，具体做法参见 简化查询 中的例子。
+这个视图显示所有数据库中的条目。它绑定应用的根地址，并从数据库中读取 title 和 text 字段。 id 最大的记录（最新的条目）在最上面。从指针返回的记录集是一个包含 select 语句查询结果的元组。对于教程应用这样的小应用，做到这样就已经够好了。但是你可能想要把结果转换为字典，具体做法参见简化查询 中的例子。
 
 这个视图会把条目作为字典传递给 show_entries.html 模板，并返回渲染结果:
 
@@ -211,7 +211,7 @@ def show_entries():
 
 ### 添加一个新条目
 
-这个视图可以让一个登录后的用户添加一个新条目。本视图只响应 POST 请求，真正的 表单显示在 show_entries 页面中。如果一切顺利，我们会 flash() 一个消息给下一个请求并重定向回到 show_entries 页面:
+这个视图可以让一个登录后的用户添加一个新条目。本视图只响应 POST 请求，真正的表单显示在 show_entries 页面中。如果一切顺利，我们会 flash() 一个消息给下一个请求并重定向回到 show_entries 页面:
 
 ```
 @app.route('/add', methods=['POST'])
@@ -225,15 +225,15 @@ def add_entry():
     return redirect(url_for('show_entries'))
 ```
 
-注意，我们在本视图中检查了用户是否已经登录（即检查会话中是否有 logged_in 键，且 对应的值是否为 True ）。
+注意，我们在本视图中检查了用户是否已经登录（即检查会话中是否有 logged_in 键，且对应的值是否为 True ）。
 
 ### 安全性建议
 
-请像示例代码一样确保在构建 SQL 语句时使用问号。否则当你使用字符串构建 SQL 时 容易遭到 SQL 注入攻击。更多内容参见 在 Flask 中使用 SQLite 3 。
+请像示例代码一样确保在构建 SQL 语句时使用问号。否则当你使用字符串构建 SQL 时容易遭到 SQL 注入攻击。更多内容参见 在 Flask 中使用 SQLite 3 。
 
 ## 登录和注销
 
-这些函数用于用户登录和注销。登录视图根据配置中的用户名和密码验证用户并在会话中 设置 logged_in 键值。如果用户通过验证，键值设为 True ，那么用户会被重定向到 show_entries 页面。另外闪现一个信息，告诉用户已登录成功。如果出现错误，模板会 提示错误信息，并让用户重新登录:
+这些函数用于用户登录和注销。登录视图根据配置中的用户名和密码验证用户并在会话中设置 logged_in 键值。如果用户通过验证，键值设为 True ，那么用户会被重定向到 show_entries 页面。另外闪现一个信息，告诉用户已登录成功。如果出现错误，模板会 提示错误信息，并让用户重新登录:
 
 ```
 @app.route('/login', methods=['GET', 'POST'])
@@ -251,7 +251,7 @@ def login():
     return render_template('login.html', error=error)
 ```
 
-登出视图则正好相反，把键值从会话中删除。在这里我们使用了一个小技巧：如果你使用 字典的 [pop()](http://docs.python.org/dev/library/stdtypes.html#dict.pop) 方法并且传递了第二个参数（键的缺省值），那么当字典中有 这个键时就会删除这个键，否则什么也不做。这样做的好处是我们不用检查用户是否已经 登录了。
+登出视图则正好相反，把键值从会话中删除。在这里我们使用了一个小技巧：如果你使用字典的 [pop()](http://docs.python.org/dev/library/stdtypes.html#dict.pop) 方法并且传递了第二个参数（键的缺省值），那么当字典中有 这个键时就会删除这个键，否则什么也不做。这样做的好处是我们不用检查用户是否已经登录了。
 
 ```
 @app.route('/logout')
@@ -271,7 +271,7 @@ def logout():
 
 ## layout.html
 
-这个模板包含 HTML 骨架、头部和一个登录链接（如果用户已登录则变为一个注销链接 ）。如果有闪现信息，那么还会显示闪现信息。 {% block body %} 块会被子模板中 同名（ body ）的块替换。
+这个模板包含 HTML 骨架、头部和一个登录链接（如果用户已登录则变为一个注销链接 ）。如果有闪现信息，那么还会显示闪现信息。 {% block body %} 块会被子模板中同名（ body ）的块替换。
 
 session 字典在模板中也可以使用。你可以使用它来检验用户是否已经 登录。注意，在 Jinja 中可以访问对象或字典的不存在的属性和成员。如例子中的 'logged_in' 键不存在时代码仍然能正常运行：
 
@@ -346,7 +346,7 @@ session 字典在模板中也可以使用。你可以使用它来检验用户是
 
 ## 步骤 7 ：添加样式
 
-现在万事俱备，只剩给应用添加一些样式了。只要把以下内容保存为 static 文件夹中 的 style.css 文件就行了：
+现在万事俱备，只剩给应用添加一些样式了。只要把以下内容保存为 static 文件夹中的 style.css 文件就行了：
 
 ```
 body            { font-family: sans-serif; background: #eee; }
@@ -371,6 +371,6 @@ h2              { font-size: 1.2em; }
 
 ## 额外赠送：测试应用
 
-现在你已经完成了整个应用，一切都运行正常。为了方便以后进行完善修改，添加自动 测试不失为一个好主意。本教程中的应用已成为[测试 Flask 应用](http://dormousehole.readthedocs.org/en/latest/testing.html#testing)文档中演示如何进行 单元测试的例子，可以去看看测试 Flask 应用是多么容易
+现在你已经完成了整个应用，一切都运行正常。为了方便以后进行完善修改，添加自动测试不失为一个好主意。本教程中的应用已成为[测试 Flask 应用](http://dormousehole.readthedocs.org/en/latest/testing.html#testing)文档中演示如何进行 单元测试的例子，可以去看看测试 Flask 应用是多么容易
 
 *© Copyright 2013, Armin Ronacher. Created using [Sphinx](http://sphinx.pocoo.org/).*
